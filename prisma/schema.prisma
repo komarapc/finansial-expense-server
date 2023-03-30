@@ -9,3 +9,72 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+
+model User {
+  id String @id
+  email String @unique
+  password String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  deleted_at DateTime?
+  profile Profile?
+  incomes Income[]
+  expenses Expense[]
+  auth_logs AuthLog[]
+}
+
+model Profile {
+  id String @id
+  user_id String @unique
+  first_name String
+  last_name String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  deleted_at DateTime?
+  user User @relation(fields: [user_id], references: [id])
+}
+
+model Income {
+  id String @id
+  user_id String
+  amount Float
+  description String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  deleted_at DateTime?
+  user User @relation(fields: [user_id], references: [id])
+}
+
+model Expense {
+  id String @id
+  user_id String
+  description String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  deleted_at DateTime?
+  user User @relation(fields: [user_id], references: [id])
+  expense_items ExpenseItems[]
+}
+
+model ExpenseItems {
+  id String @id
+  expense_id String
+  amount Float
+  description String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  deleted_at DateTime?
+  expense Expense @relation(fields: [expense_id], references: [id])
+}
+
+// auth log
+model AuthLog{
+  id String @id
+  user_id String
+  token String @unique
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  deleted_at DateTime?
+  user User @relation(fields: [user_id], references: [id])
+}
