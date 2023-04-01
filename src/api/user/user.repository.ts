@@ -51,6 +51,9 @@ export class UserRepository {
       where: {
         email,
       },
+      include: {
+        profile: true,
+      },
     });
   }
 
@@ -63,6 +66,9 @@ export class UserRepository {
     return await this.prisma.user.findUnique({
       where: {
         id,
+      },
+      include: {
+        profile: true,
       },
     });
   }

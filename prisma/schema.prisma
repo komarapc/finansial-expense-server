@@ -68,11 +68,16 @@ model ExpenseItems {
   expense Expense @relation(fields: [expense_id], references: [id])
 }
 
+enum AuthType{
+  LOGIN
+  LOGOUT
+}
 // auth log
 model AuthLog{
   id String @id
   user_id String
-  token String @unique
+  token String 
+  type AuthType
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   deleted_at DateTime?

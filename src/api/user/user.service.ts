@@ -4,11 +4,15 @@ import { ProfileProps, UserProps } from './user.interface';
 
 import { Injectable } from '@nestjs/common';
 import { ResponseJSON } from './../../utils/response';
+import { TokenService } from './../../services/token.service';
 import { UserRepository } from './user.repository';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly user: UserRepository) {}
+  constructor(
+    private readonly user: UserRepository,
+    private readonly token: TokenService,
+  ) {}
 
   async getUser(query?: { page?: number }) {
     try {
@@ -38,6 +42,7 @@ export class UserService {
   async getUserById(id: string) {
     try {
       const getUser = await this.user.getUserById(id);
+      console.log(this.token.getToken());
       if (!getUser)
         return new ResponseJSON({
           success: false,
@@ -45,11 +50,22 @@ export class UserService {
           statusMessage: 'Not Found',
           message: 'User not found',
         });
+      // exclude password
       return new ResponseJSON({
         success: true,
         statusCode: 200,
         statusMessage: 'OK',
-        data: { user: getUser },
+        data: {
+          user: {
+            id: getUser.id,
+            email: getUser.email,
+            first_name: getUser.profile.first_name,
+            last_name: getUser.profile.last_name,
+            created_at: getUser.created_at,
+            updated_at: getUser.updated_at,
+            deleted_at: getUser.deleted_at,
+          },
+        },
       });
     } catch (error) {
       console.log(error);
