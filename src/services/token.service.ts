@@ -20,7 +20,7 @@ export class TokenService {
 
   decodeToken(token: string) {
     // decode jwt token
-    return jwt.decode(token, { complete: true });
+    return jwt.decode(token, { complete: false });
   }
 
   verifyToken(token: string) {
