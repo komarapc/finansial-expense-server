@@ -6,8 +6,9 @@ import { ExpenseModule } from './api/expense/expense.module';
 import { IncomeModule } from './api/income/income.module';
 import { Module } from '@nestjs/common';
 import { UserModule } from './api/user/user.module';
+import { ExpenseItemModule } from './api/expense-item/expense-item.module';
 @Module({
-  imports: [ConfigModule.forRoot(), AuthModule, UserModule, IncomeModule, ExpenseModule],
+  imports: [ConfigModule.forRoot(), AuthModule, UserModule, IncomeModule, ExpenseModule, ExpenseItemModule],
   controllers: [AppController],
   providers: [AppService],
 })

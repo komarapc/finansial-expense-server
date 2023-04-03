@@ -25,7 +25,7 @@ export class BearerTokenMiddleware implements NestMiddleware {
           }),
         ),
       );
-      res.end();
+      return;
     }
     const bearer = bearerHeader.split(' ');
     const bearerToken = bearer[1];
@@ -41,7 +41,7 @@ export class BearerTokenMiddleware implements NestMiddleware {
           }),
         ),
       );
-      res.end();
+      return;
     }
 
     const verifyToken = this.token.validateToken(bearerToken);
@@ -57,7 +57,7 @@ export class BearerTokenMiddleware implements NestMiddleware {
           }),
         ),
       );
-      res.end();
+      return;
     }
 
     this.token.setToken(bearerToken);

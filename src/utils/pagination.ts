@@ -1,5 +1,5 @@
 export class Pagination {
-  public limit: number = 100;
+  public limit: number = 50;
   public page: number = 1;
 
   constructor(page: number) {
