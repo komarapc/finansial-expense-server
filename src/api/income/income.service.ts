@@ -54,7 +54,6 @@ export class IncomeService {
   async store(income: IncomeProps) {
     try {
       const token: any = this.token.decodeToken(this.token.getToken());
-      console.log({ token });
       // check if user_id is equal to token user_id
       if (token.user_id !== income.user_id)
         return new ResponseJSON({
@@ -110,7 +109,6 @@ export class IncomeService {
         data: { income: update },
       });
     } catch (error) {
-      console.log(error);
       return new ResponseJSON({
         success: false,
         statusCode: 500,

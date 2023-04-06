@@ -76,7 +76,7 @@ export class ExpenseService {
         data: { expense },
       });
     } catch (error) {
-      console.log(error);
+      
       return new ResponseJSON({
         success: false,
         statusCode: 500,

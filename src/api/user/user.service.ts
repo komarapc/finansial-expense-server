@@ -42,7 +42,6 @@ export class UserService {
   async getUserById(id: string) {
     try {
       const getUser = await this.user.getUserById(id);
-      console.log(this.token.getToken());
       if (!getUser)
         return new ResponseJSON({
           success: false,
@@ -68,7 +67,6 @@ export class UserService {
         },
       });
     } catch (error) {
-      console.log(error);
       return new ResponseJSON({
         success: false,
         statusCode: 500,

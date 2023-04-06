@@ -66,7 +66,6 @@ export class ExpenseController {
       const store = await this.expense.store(body);
       response.status(store.statusCode).send(store);
     } catch (error) {
-      console.log(error);
       response.status(500).send(
         new ResponseJSON({
           success: false,

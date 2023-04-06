@@ -18,7 +18,6 @@ export class AuthService {
   async login(email: string, password: string) {
     // find user by email
     try {
-      console.log(this.token.getToken());
       const user = await this.user.getUserByEmail(email);
       // check if user is not found
       if (!user)
